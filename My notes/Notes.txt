@@ -11,3 +11,49 @@ oc new-app https://github.com/michaelJava69/nodejs-ex --name nodejs-mongodb-exam
 
 oc get services
 oc expose service/nodejs-mongodb-example
+
+
+Old
+https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongo-persistent/webhooks/s1jE36QGJVHu5WkptjAK6dxMI2AuFGt6BqLAeq4k/github
+New
+https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongodb-example/webhooks/kAeJeZUyGeOxXgMMznap/github
+
+
+Attach database
+
+oc new-app mongodb-persistent -p MONGODB_USER=admin -p MONGODB_PASSWORD=secret -p MONGODB_ADMIN_PASSWORD=super-secret
+ans
+
+* With parameters:
+        * Memory Limit=512Mi
+        * Namespace=openshift
+        * Database Service Name=mongodb
+        * MongoDB Connection Username=admin
+        * MongoDB Connection Password=secret
+        * MongoDB Database Name=sampledb
+        * MongoDB Admin Password=super-secret
+        * Volume Capacity=1Gi
+        * Version of MongoDB Image=3.2
+Settings
+
+oc set env dc/nodejs-mongodb-example MONGO_URL='mongodb://admin:secret@mongodb:27017/sampledb'
+
+info
+oc set env dc/nodejs-mongodb-example MONGO_URL='mongodb://admin:secret@mongodb-persistent:27017/sampledb'
+
+oc status
+ 
+In project NodeJs (michaeljava69-example) on server https://console.starter-us-east-1.openshift.com:443
+
+svc/mongodb - 172.30.123.27:27017
+  dc/mongodb deploys openshift/mongodb:3.2
+    deployment #1 deployed 8 minutes ago - 1 pod
+
+http://nodejs-mongodb-example-michaeljava69-example.1d35.starter-us-east-1.openshiftapps.com to pod port 8080-tcp (svc/nodejs-mongodb-example)
+  dc/nodejs-mongodb-example deploys istag/nodejs-mongodb-example:latest <-
+    bc/nodejs-mongodb-example source builds https://github.com/michaelJava69/nodejs-ex on openshift/nodejs:10
+    deployment #4 running for 40 seconds - 0/1 pods growing to 1
+    deployment #3 failed 5 minutes ago: newer deployment was found running
+    deployment #2 deployed 18 minutes ago - 1 pod
+
+
