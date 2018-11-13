@@ -1,0 +1,13 @@
+https://console.starter-us-east-1.openshift.com/
+
+C:\Users\micha>oc login -u michael.ugbechie@rbs.co.uk -p azuka123 https://console.starter-us-east-1.openshift.com/
+oc get projects
+oc project <your_project_name>
+oc delete all --all
+oc get pvc
+oc delete pvc mongodb
+
+oc new-app https://github.com/michaelJava69/nodejs-ex --name nodejs-mongodb-example
+
+oc get services
+oc expose service/nodejs-mongodb-example
