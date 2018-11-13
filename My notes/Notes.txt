@@ -17,7 +17,11 @@ Old
 https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongo-persistent/webhooks/s1jE36QGJVHu5WkptjAK6dxMI2AuFGt6BqLAeq4k/github
 New
 https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongodb-example/webhooks/kAeJeZUyGeOxXgMMznap/github
+https://console.starter-us-east-1.openshift.com:443/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongodb-example/webhooks/<secret>/github
+https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongodb-example/webhooks/kAeJeZUyGeOxXgMMznap/github
 
+Latest
+https://api.starter-us-east-1.openshift.com/apis/build.openshift.io/v1/namespaces/michaeljava690-example/buildconfigs/nodejs-mongo-persistent/webhooks/tQEpYn3uYseu3NKwrfn1lPNsvG8vfhcsWqbRgB3f/github
 
 Attach database
 
@@ -40,6 +44,8 @@ oc set env dc/nodejs-mongodb-example MONGO_URL='mongodb://admin:secret@mongodb:2
 
 info
 oc set env dc/nodejs-mongodb-example MONGO_URL='mongodb://admin:secret@mongodb-persistent:27017/sampledb'
+oc set env dc/nodejs-mongodb-example
+MONGO_URL='mongodb://admin:secret@mongodb-persistent:27017/sampledb'
 
 oc status
  
@@ -57,3 +63,22 @@ http://nodejs-mongodb-example-michaeljava69-example.1d35.starter-us-east-1.opens
     deployment #2 deployed 18 minutes ago - 1 pod
 
 
+List of evironment variables
+
+oc set env pods --all --list
+
+SOURCE_REPOSITORY=https://github.com/michaelJava69/nodejs-ex
+SOURCE_URI=https://github.com/michaelJava69/nodejs-ex
+ALLOWED_UIDS=1-
+DROP_CAPS=KILL,MKNOD,SETGID,SETUID
+PUSH_DOCKERCFG_PATH=/var/run/secrets/openshift.io/push
+PULL_DOCKERCFG_PATH=/var/run/secrets/openshift.io/pull
+# pods nodejs-mongodb-example-2-zf6fv, container nodejs-mongodb-example
+# pods nodejs-mongodb-example-4-deploy, container deployment
+
+
+
+1.First, run the following command to display the webhook URLs associated with your build configuration:
+oc describe buildConfig nodejs-mongodb-example
+
+https://console.starter-us-east-1.openshift.com:443/apis/build.openshift.io/v1/namespaces/michaeljava69-example/buildconfigs/nodejs-mongodb-example/webhooks/<secret>/github
